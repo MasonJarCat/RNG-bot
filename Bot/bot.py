@@ -1,9 +1,12 @@
 # bot.py
 import os
-import discord
 from discord.ext import commands
+import discord
 from dotenv import load_dotenv
-
+import numpy as np
+import pandas as pd
+import matplotlib as mp
+import datetime as dt
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
