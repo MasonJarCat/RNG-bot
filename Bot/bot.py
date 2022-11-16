@@ -43,10 +43,12 @@ async def rngH(ctx, arg: int):
 @bot.command()
 async def getRate(ctx):
     var = 0
+    strI = "Average Hans Rating Today:"
     for x in range(len(df1.index)):
         var = var + df1.loc[x,"Rating"]
     var = var / len(df1.index)
-    await ctx.send("Average Hans Rating Today:"+ var)
+    strI = " ".join([strI,str(var)])
+    await ctx.send(strI)
 
   #report the days special  
 @bot.command()
