@@ -36,14 +36,11 @@ async def on_ready():
 async def on_message(message):
         if(message.content.startswith("!rngU")):
             await message.channel.send('Hello!')
-@bot.command()
-async def rngU(ctx, arg: int):
-        await ctx.send(arg)
 
 @bot.command()
 async def rngU(ctx, arg: int):
         await ctx.send(arg)
-        df1.loc[len(df1.index)] = [10, "12:20", "Monday"]
+        df1.loc[len(df1.index)] = [arg, "12:20", "Monday"]
 
 
 client.run(TOKEN)
