@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import matplotlib as plt
 import datetime as dt
+import openpyxl as px
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -16,7 +17,9 @@ intents.message_content = True
 
 #passing the intents to the client and creating it
 #creates dataframe
-df1 = pd.DataFrame(columns=("Rating","Time", "Day"))  
+
+#df1 = pd.DataFrame(columns=("Rating","Time", "Day"))
+df1 = pd.read_excel('Hans.xlsx', engine = "openpyxl")  
 #bot creation
 specialOfTheDay = []
 bot = commands.Bot(command_prefix='!',intents=intents)
@@ -63,6 +66,14 @@ async def spec(ctx):
     for i in range(len(specialOfTheDay)):
         str = " ".join([str, specialOfTheDay[i]])
     await ctx.send(str)
+
+#saves it to an excel file via command
+@bot.command()
+async def save(ctx):
+    with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
+        df1.to_excel(writer, sheet_name="Sheet 1", index=False)
+    await ctx.send("Saved")
+    
 
 #broken do NOT use
 @bot.command()
