@@ -15,12 +15,10 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 #passing the intents to the client and creating it
-#creates file 
-file = "Bot\Hans.xlsx"
 #creates dataframe
 
-df1 = pd.read_excel(file, sheet_name='Hans',engine = "openpyxl")  
-df2 = pd.read_excel(file, sheet_name='Urban',engine = "openpyxl")  
+df1 = pd.read_excel('Hans.xlsx', sheet_name='Hans',engine = "openpyxl")  
+#df2 = pd.read_excel('Hans.xlsx', sheet_name='Urban',engine = "openpyxl")  
 
 #df1['Date'] = df1['Date'].astype('datetime64[ns]')
 #[datetime.date(2022, 11, 17)]
@@ -102,15 +100,15 @@ async def saveH(ctx):
     df1["Date"]= df1["Date"].astype(str)
       #  df1.loc[x,"Time"]= df1.loc[x,"Time"].astype('int64')
       # openpyxl
-    with pd.ExcelWriter(file, mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
+    with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
         df1.to_excel(writer, sheet_name="Hans", index=False)
     await ctx.send("Saved")
 
-@bot.command()
-async def saveU(ctx):
-    with pd.ExcelWriter(file, mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
-        df2.to_excel(writer, sheet_name="Urban", index=False)
-    await ctx.send("Saved")
+#@bot.command()
+#async def saveU(ctx):
+#    with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
+#        df2.to_excel(writer, sheet_name="Urban", index=False)
+#    await ctx.send("Saved")
 #broken do NOT use  
 @bot.command()
 async def getGGraph(ctx):
@@ -118,6 +116,7 @@ async def getGGraph(ctx):
     df1["Rating"].plot()
     plt.show()
     await ctx.send(plt.show())
+
 
 
 bot.run(TOKEN)
