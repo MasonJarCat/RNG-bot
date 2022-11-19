@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import matplotlib as plt
 from datetime import datetime as dt
+import asyncio
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -18,20 +19,24 @@ intents.message_content = True
 #creates dataframe
 
 df1 = pd.read_excel('Hans.xlsx', sheet_name='Hans',engine = "openpyxl")  
-#df2 = pd.read_excel('Hans.xlsx', sheet_name='Urban',engine = "openpyxl")  
+df2 = pd.read_excel('Hans.xlsx', sheet_name='Urban',engine = "openpyxl")  
 
 #df1['Date'] = df1['Date'].astype('datetime64[ns]')
 #[datetime.date(2022, 11, 17)]
 df1['Date'] = pd.to_datetime(df1['Date'], format='[datetime.date(%Y, %m, %d)]')
 
-
+#df1['Date'] = pd.to_datetime(df1['Date'], format='%Y-%m-%d')
 #bot creation
 specialOfTheDay = []
 bot = commands.Bot(command_prefix='!',intents=intents)
+
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user} (ID: {bot.user.id})')
     print('------')
+    while True:
+        await asyncio.sleep(3600)
+        save()
 
 @bot.command()
 async def rngU(ctx, arg: int):
@@ -74,7 +79,24 @@ async def hansA(ctx):
         if df1.loc[x,"Date"] == today.date():
             var += df1.loc[x,"Rating"]
             count += 1
-            print("EQUALS at " + str(x))
+#         print("EQUALS at " + str(x))
+    var = var / count
+    strI = " ".join([strI,str(var)])
+    await ctx.send(strI)
+
+@bot.command()
+async def urbanA(ctx):
+    var = 0
+    count = 0
+    strI = "Average Urban Rating Today:"
+    today = dt.today()
+    for x in range(len(df2.index)):
+      #  print("DF: " + df1.loc[x,"Date"])
+       # print("Date: " + today.date())
+        if df1.loc[x,"Date"] == today.date():
+            var += df2.loc[x,"Rating"]
+            count += 1
+    #        print("EQUALS at " + str(x))
     var = var / count
     strI = " ".join([strI,str(var)])
     await ctx.send(strI)
@@ -97,18 +119,18 @@ async def spec(ctx):
 @bot.command()
 async def saveH(ctx):
     #for x in range(len(df1.index)):
-    df1["Date"]= df1["Date"].astype(str)
+    df1['Date']= df1['Date'].astype(str)
       #  df1.loc[x,"Time"]= df1.loc[x,"Time"].astype('int64')
       # openpyxl
     with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
         df1.to_excel(writer, sheet_name="Hans", index=False)
     await ctx.send("Saved")
 
-#@bot.command()
-#async def saveU(ctx):
-#    with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
-#        df2.to_excel(writer, sheet_name="Urban", index=False)
-#    await ctx.send("Saved")
+@bot.command()
+async def saveU(ctx):
+    with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
+        df2.to_excel(writer, sheet_name="Urban", index=False)
+    await ctx.send("Saved")
 #broken do NOT use  
 @bot.command()
 async def getGGraph(ctx):
@@ -117,6 +139,16 @@ async def getGGraph(ctx):
     plt.show()
     await ctx.send(plt.show())
 
-
-
+#function to run in loop to save at interval
+def save():
+    #for x in range(len(df1.index)):
+    df1['Date']= df1['Date'].astype(str)
+      #  df1.loc[x,"Time"]= df1.loc[x,"Time"].astype('int64')
+      # openpyxl
+    with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
+        df1.to_excel(writer, sheet_name="Hans", index=False)
+    with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
+        df2.to_excel(writer, sheet_name="Urban", index=False)
+    print('saved')
+    
 bot.run(TOKEN)
