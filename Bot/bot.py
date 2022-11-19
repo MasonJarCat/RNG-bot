@@ -23,10 +23,10 @@ df2 = pd.read_csv('dataU.csv')
 
 #df1['Date'] = df1['Date'].astype('datetime64[ns]')
 #[datetime.date(2022, 11, 17)]
-#df1['Date'] = pd.to_datetime(df1['Date'], format='%Y-%m-%d', errors='ignore')
-#df2['Date'] = pd.to_datetime(df2['Date'], format='%Y-%m-%d', errors='ignore')
-df1['Date'] = pd.to_datetime(df1['Date'], format='[datetime.date(%Y, %m, %d)]', errors='ignore')
-df2['Date'] = pd.to_datetime(df2['Date'], format='[datetime.date(%Y, %m, %d)]', errors='ignore')
+df1['Date'] = pd.to_datetime(df1['Date'], format='%Y-%m-%d')
+df2['Date'] = pd.to_datetime(df2['Date'], format='%Y-%m-%d')
+#df1['Date'] = pd.to_datetime(df1['Date'], format='[datetime.date(%Y, %m, %d)]', errors='ignore')
+#df2['Date'] = pd.to_datetime(df2['Date'], format='[datetime.date(%Y, %m, %d)]', errors='ignore')
 
 #bot creation
 specialOfTheDay = []

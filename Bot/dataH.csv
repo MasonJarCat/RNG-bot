@@ -1,3 +1,4 @@
 Rating,Date,Time,Day
-5,2022-11-19,"[datetime.time(12, 18, 51, 186000)]","Index(['Saturday'], dtype='object')"
-6,2022-11-19,"[datetime.time(12, 19, 3, 241000)]","Index(['Saturday'], dtype='object')"
+5,2022-11-19 00:00:00,"[datetime.time(12, 18, 51, 186000)]","Index(['Saturday'], dtype='object')"
+6,2022-11-19 00:00:00,"[datetime.time(12, 19, 3, 241000)]","Index(['Saturday'], dtype='object')"
+5,"[datetime.date(2022, 11, 19)]","[datetime.time(14, 7, 35, 71000)]","Index(['Saturday'], dtype='object')"
