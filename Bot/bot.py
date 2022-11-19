@@ -23,9 +23,11 @@ df2 = pd.read_excel('Hans.xlsx', sheet_name='Urban',engine = "openpyxl")
 
 #df1['Date'] = df1['Date'].astype('datetime64[ns]')
 #[datetime.date(2022, 11, 17)]
-df1['Date'] = pd.to_datetime(df1['Date'], format='[datetime.date(%Y, %m, %d)]')
+df1['Date'] = pd.to_datetime(df1['Date'], format='%Y-%m-%d', errors='ignore')
+df2['Date'] = pd.to_datetime(df2['Date'], format='%Y-%m-%d', errors='ignore')
+df1['Date'] = pd.to_datetime(df1['Date'], format='[datetime.date(%Y, %m, %d)]', errors='ignore')
+df2['Date'] = pd.to_datetime(df2['Date'], format='[datetime.date(%Y, %m, %d)]', errors='ignore')
 
-#df1['Date'] = pd.to_datetime(df1['Date'], format='%Y-%m-%d')
 #bot creation
 specialOfTheDay = []
 bot = commands.Bot(command_prefix='!',intents=intents)
@@ -79,7 +81,7 @@ async def hansA(ctx):
         if df1.loc[x,"Date"] == today.date():
             var += df1.loc[x,"Rating"]
             count += 1
-#         print("EQUALS at " + str(x))
+            print("EQUALS at " + str(x))
     var = var / count
     strI = " ".join([strI,str(var)])
     await ctx.send(strI)
