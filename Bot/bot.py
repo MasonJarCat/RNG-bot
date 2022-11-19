@@ -121,7 +121,7 @@ async def spec(ctx):
 @bot.command()
 async def saveH(ctx):
     #for x in range(len(df1.index)):
-    df1['Date']= df1['Date'].astype(str)
+    #df1['Date']= df1['Date'].astype(str)
       #  df1.loc[x,"Time"]= df1.loc[x,"Time"].astype('int64')
       # openpyxl
     with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
