@@ -25,8 +25,8 @@ df2 = pd.read_csv('dataU.csv')
 #[datetime.date(2022, 11, 17)]
 #df1['Date'] = pd.to_datetime(df1['Date'], format='%Y-%m-%d',errors='ignore')
 #df2['Date'] = pd.to_datetime(df2['Date'], format='%Y-%m-%d',errors='ignore')
-df1['Date'] = pd.to_datetime(df1['Date'], format='[datetime.date(%Y, %m, %d)]', errors='ignore')
-df2['Date'] = pd.to_datetime(df2['Date'], format='[datetime.date(%Y, %m, %d)]', errors='ignore')
+df1['Date'] = pd.to_datetime(df1['Date'], format='[datetime.date(%Y, %m, %d)]',errors='ignore')
+df2['Date'] = pd.to_datetime(df2['Date'], format='[datetime.date(%Y, %m, %d)]',errors='ignore')
 
 #bot creation
 specialOfTheDay = []
@@ -139,14 +139,14 @@ async def saveH(ctx):
       # openpyxl
     #with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
     #    df1.to_excel(writer, sheet_name="Hans", index=False)
-    df1.to_csv('dataH.csv', index=False, mode = 'a')
+    df1.to_csv('dataH.csv', index=False)
     await ctx.send("Saved")
 
 @bot.command()
 async def saveU(ctx):
    # with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
     #    df2.to_excel(writer, sheet_name="Urban", index=False)
-    df2.to_csv('dataU.csv', index=False, mode = 'a')
+    df2.to_csv('dataU.csv', index=False)
     await ctx.send("Saved")
 #broken do NOT use  
 @bot.command()
@@ -168,8 +168,8 @@ def save():
         df1.to_excel(writer, sheet_name="Hans", index=False)
     with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
         df2.to_excel(writer, sheet_name="Urban", index=False) '''
-    df1.to_csv('dataH.csv', index=False, mode = 'a')
-    df2.to_csv('dataU.csv', index=False, mode = 'a')
+    df1.to_csv('dataH.csv', index=False)
+    df2.to_csv('dataU.csv', index=False)
     print('saved')
     
 bot.run(TOKEN)

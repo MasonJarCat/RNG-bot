@@ -1,5 +1,4 @@
 Rating,Date,Time,Day
-10,"[datetime.date(2022, 11, 19)]","[datetime.time(14, 12, 32, 592000)]","Index(['Saturday'], dtype='object')"
-10,"[datetime.date(2022, 11, 19)]","[datetime.time(14, 15, 39, 104000)]","Index(['Saturday'], dtype='object')"
-10,"[datetime.date(2022, 11, 19)]","[datetime.time(14, 16, 56, 797000)]","Index(['Saturday'], dtype='object')"
-10,"[datetime.date(2022, 11, 19)]","[datetime.time(14, 17, 32, 985000)]","Index(['Saturday'], dtype='object')"
+10,2022-11-19 00:00:00,"[datetime.time(14, 50, 15, 737000)]","Index(['Saturday'], dtype='object')"
+10,"[datetime.date(2022, 11, 19)]","[datetime.time(15, 33, 23, 770000)]","Index(['Saturday'], dtype='object')"
+3,"[datetime.date(2022, 11, 19)]","[datetime.time(15, 33, 34, 81000)]","Index(['Saturday'], dtype='object')"
