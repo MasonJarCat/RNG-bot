@@ -42,14 +42,17 @@ async def on_ready():
 
 @bot.command()
 async def rngU(ctx, arg: int):
+    if(arg > 0 and arg < 11):
         await ctx.send(arg)
-
         dti = pd.to_datetime([ctx.message.created_at])
         dti = dti.tz_convert("US/Eastern")
         df2.loc[len(df2.index)] = [arg, dti.date, dti.time, dti.day_name()] 
+    else:
+        await ctx.send("please input a number between 1-10")
 #populates array
 @bot.command()
 async def rngH(ctx, arg: int):
+    if(arg > 0 and arg < 11):
         await ctx.send(arg)
 
         dti = pd.to_datetime([ctx.message.created_at])
@@ -57,9 +60,11 @@ async def rngH(ctx, arg: int):
         df1.loc[len(df1.index)] = [arg, dti.date, dti.time, dti.day_name()] 
        # await ctx.send(df1)
        # print(df1)
+    else:
+        await ctx.send("please input a number between 1-10")
 
-#gets average
-@bot.command()
+#gets average(not in use)
+'''@bot.command()
 async def hansOverall(ctx):
     var = 0
     strI = "Average Hans Rating Today:"
@@ -67,7 +72,7 @@ async def hansOverall(ctx):
         var = var + df1.loc[x,"Rating"]
     var = var / len(df1.index)
     strI = " ".join([strI,str(var)])
-    await ctx.send(strI)
+    await ctx.send(strI)'''
 
 @bot.command()
 async def hansA(ctx):
@@ -84,7 +89,11 @@ async def hansA(ctx):
             print("EQUALS at " + str(x))
     var = var / count
     strI = " ".join([strI,str(var)])
-    await ctx.send(strI)
+    #makes sure that there is rng reports in for the day
+    if count > 0:
+        await ctx.send(strI)
+    else:
+        ctx.send("no current entries today")
 
 @bot.command()
 async def urbanA(ctx):
@@ -101,7 +110,11 @@ async def urbanA(ctx):
     #        print("EQUALS at " + str(x))
     var = var / count
     strI = " ".join([strI,str(var)])
-    await ctx.send(strI)
+    #makes sure that there is rng reports in for the day
+    if count > 0:
+        await ctx.send(strI)
+    else:
+        ctx.send("no current entries today")
 
   #report the days special  
 @bot.command()
@@ -142,7 +155,9 @@ async def getGGraph(ctx):
     df1["Rating"].plot()
     plt.show()
     await ctx.send(plt.show())
-
+@bot.event
+async def on_disconnect():
+    save()
 #function to run in loop to save at interval
 def save():
     #for x in range(len(df1.index)):
