@@ -18,8 +18,8 @@ intents.message_content = True
 #passing the intents to the client and creating it
 #creates dataframe
 
-df1 = pd.read_excel('Hans.xlsx', sheet_name='Hans',engine = "openpyxl")  
-df2 = pd.read_excel('Hans.xlsx', sheet_name='Urban',engine = "openpyxl")  
+df1 = pd.read_csv('dataH.csv')  
+df2 = pd.read_csv('dataU.csv')  
 
 #df1['Date'] = df1['Date'].astype('datetime64[ns]')
 #[datetime.date(2022, 11, 17)]
@@ -124,14 +124,16 @@ async def saveH(ctx):
     #df1['Date']= df1['Date'].astype(str)
       #  df1.loc[x,"Time"]= df1.loc[x,"Time"].astype('int64')
       # openpyxl
-    with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
-        df1.to_excel(writer, sheet_name="Hans", index=False)
+    #with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
+    #    df1.to_excel(writer, sheet_name="Hans", index=False)
+    df1.to_csv('dataH.csv', index=False)
     await ctx.send("Saved")
 
 @bot.command()
 async def saveU(ctx):
-    with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
-        df2.to_excel(writer, sheet_name="Urban", index=False)
+   # with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
+    #    df2.to_excel(writer, sheet_name="Urban", index=False)
+    df2.to_csv('dataU.csv', index=False)
     await ctx.send("Saved")
 #broken do NOT use  
 @bot.command()
@@ -144,13 +146,15 @@ async def getGGraph(ctx):
 #function to run in loop to save at interval
 def save():
     #for x in range(len(df1.index)):
-    df1['Date']= df1['Date'].astype(str)
+    #df1['Date']= df1['Date'].astype(str)
       #  df1.loc[x,"Time"]= df1.loc[x,"Time"].astype('int64')
       # openpyxl
-    with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
+    '''with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
         df1.to_excel(writer, sheet_name="Hans", index=False)
     with pd.ExcelWriter("Hans.xlsx", mode="a",if_sheet_exists="replace",engine = "openpyxl") as writer:
-        df2.to_excel(writer, sheet_name="Urban", index=False)
+        df2.to_excel(writer, sheet_name="Urban", index=False) '''
+    df1.to_csv('dataH.csv', index=False)
+    df2.to_csv('dataU.csv', index=False)
     print('saved')
     
 bot.run(TOKEN)
